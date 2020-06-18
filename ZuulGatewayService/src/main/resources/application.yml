@@ -1,0 +1,79 @@
+#Setting up info for actuator endpoint if used
+info:
+  app:
+   name: zuul-gateway
+   description: "just a demo app for zuul working"
+   version: 1.0
+#Exposing more endpoints on spring actuator
+#use * for exposing all or comma-delimited list for exposing required endpoints
+management:
+ endpoints:
+  web:
+   exposure:
+    include: "*"
+#By excluding the endpoints 
+#management.endpoints.web.exposure.exclude=health,info
+
+# changing the server properties
+
+server:
+  port: ${server.port}
+  servlet:
+       context-path: /
+       session:
+         timeout: 15m
+#
+#Setting up security oauth2 properties , redis host properties to be used by spring-session to store session details so that can be shared
+#
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: your_clientId
+            clientSecret: your_clientSecret
+          github:
+            clientId: your_clientId
+            clientSecret: your_clientSecret
+  redis:
+    host: ${redis.hostname}
+    port: ${redis.port}
+
+#
+#disabling the default fall back filter chain for (/**) any request
+#
+security:
+  basic:
+    enabled: false
+
+#Twilio configuration and details
+
+twilio:
+  account_sid: your_account_sid
+  auth_token: your_auth_token
+  service_sid: your_service_sid
+
+
+# ...
+
+
+#
+#Setting up zuul configs
+#
+
+zuul:
+  routes:
+    backend:
+      path: /backend/**
+      url: ${api.url}
+    ui:
+      path: /ui/**
+      url: ${ui.url}
+
+#
+# JWT props
+#
+jwt:
+  validity: 3600
+  secret: 1928372981362983232131231431234311209327483

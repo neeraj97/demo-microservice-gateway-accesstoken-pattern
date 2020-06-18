@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyApp</title>
+  <!-- <base href="/"> -->
+  <base href="/ui/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!-- CSS only -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- google sign in sdk-->
+<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+<!-- <meta name="google-signin-client_id" content="500848323911-rvign8t7ce32i7vekm47vilj64jum0st.apps.googleusercontent.com"> -->
+<!-- END Pre-requisites -->
+<!-- Continuing the <head> section -->
+  <script>
+    var auth2;
+    function start() {
+      gapi.load('auth2', function() {
+        auth2 = gapi.auth2.init({
+          client_id: '500848323911-rvign8t7ce32i7vekm47vilj64jum0st.apps.googleusercontent.com',
+          redirect_uri:'http://localhost:3456/login/oauth2/code/google',
+          ux_mode: 'popup'
+          // Scopes to request in addition to 'profile' and 'email'
+          //scope: 'additional_scope'
+        });
+           
+    $('#googleSignin').click(function() {
+      // signInCallback defined in step 6.
+      console.log("inside listener")
+      auth2.grantOfflineAccess().then(signInCallback,signInError);
+  });
+      });
+    }
+
+  function signInError(error){
+    console.log(error);
+    setModalErrorMessage('Google Sign in failed');
+  }
+
+  function signInCallback(authResult) {
+    console.log(authResult);
+
+    if (authResult['code']) {
+
+    // Hide the sign-in button now that the user is authorized, for example:
+    // $('#signinButton').attr('style', 'display: none');
+
+    // Send the code to the server
+
+    //closing the Modal
+      var xhr = new XMLHttpRequest();
+      console.log(encodeURIComponent(authResult['code']));
+      xhr.open('GET', '/login/oauth2/code/google?code='+encodeURIComponent(authResult['code']));
+      xhr.send();
+      console.log(xhr.response);
+      $('#loginModal').modal('hide');
+    
+    } 
+    else {
+      // There was an error.
+      setModalErrorMessage('Google Sign in failed');
+    }
+  }
+
+  function setModalErrorMessage(message){
+    $('#error-message').html(message);
+  }
+
+  </script>
+
+
+</head>
+<body>
+
+  <!-- <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '788377805029630',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v7.0'
+      });
+        
+      FB.AppEvents.logPageView();   
+        
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=788377805029630&autoLogAppEvents=1" nonce="sQi4zB3z"></script> -->
+  <app-root></app-root>
+</body>
+</html>

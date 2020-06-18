@@ -1,0 +1,99 @@
+
+<script>
+  function signOut() {
+    console.log('inside signout');
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
+
+<div class="container">
+  <ul class="nav nav-pills">
+    <li><a routerLinkActive="active" routerLink="/home">Home</a></li>
+    <li><a href="javascript:void(0)" (click)="login()">Login</a></li>
+    <li><a (click)="logout()" onclick="console.log('inside signout');
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });">Logout</a></li>
+  </ul>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" class="form-control" id="mobileNumber" 
+            aria-describedby="emailHelp" placeholder="Enter Mobile Number" name="Number" [(ngModel)]="otpLoginDetails.mobileNumber">
+          </div>
+          <div class="form-group" style="display: none;" id="otp-form-group">
+            <label for="otp">OTP</label>
+            <input type="password" class="form-control" id="otpinput" name="otp" placeholder="Enter OTP" [(ngModel)]="otpLoginDetails.otp">
+          </div>
+
+          <button id="sendOTP-button" class="btn btn-primary" type="button" (click)="sendOTP()">Send OTP</button>
+          <button id="verifyOTP-button" class="btn btn-primary" (click)="verifyOTP()" style="display: none;">Verify</button>
+        </form>
+        <hr>
+        <!--OAuth login for google and facebook-->
+        <!-- <div class="container">
+          <div class="row">
+            <div class="col">
+              <button id="googleSignin" class="btn btn-outline-dark" role="button" style="text-transform:none">
+                <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                Login with Google
+              </button>
+            </div>
+            <br>
+            <div class="col">
+              <div class="fb-login-button" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
+            </div>
+          </div>
+      </div> -->
+    </div>
+      <div class="modal-footer">
+        <p id="error-message" style="color: red;font-weight: bold;" ></p>
+        <button type="button" class="btn btn-secondary" 
+        data-dismiss="modal"  (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="container">
+    <p>
+        This app has uses two web apis. One of them doesn't require authentication/login.
+        <br>
+        But the other does need authentication 
+    </p>
+
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-primary" (click)="hitUnSecureAPI()">UnSecure API (doesn't requires authentication)</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" (click)="hitSecureAPI()">Secure API (requires authentication)</button>
+        </div>
+    </div>
+
+    <div class="row">
+      <h5>Response from APIs</h5>
+      <div  id="response-message" style="font-weight: bold;color: green;"></div>
+    </div>
+
+  </div>
+</div>
+<div id="snackbar">Some text some message..</div>

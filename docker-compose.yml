@@ -1,0 +1,37 @@
+version: '3'
+services: 
+    # Redis server for centralized storage for session details
+    redis:
+        image: 'redis:6.0.5'
+    
+    # protected sample microservice 
+    api:
+        build: 
+            context: ./SampleMicroservice
+            dockerfile: DockerFile
+        environment:
+            - server.port=9090
+    
+    # UI service
+    ui:
+        build:
+            context: ./UI
+            dockerfile: DockerFile
+    
+    # programmable gateway for authenticating and routing 
+    zuulgateway:
+        build: 
+            context: ./ZuulGatewayService
+            dockerfile: DockerFile
+        environment: 
+            - server.port=3456
+            - api.url=http://api:9090
+            - ui.url=http://ui:80
+            - redis.hostname=redis
+            - redis.port=6379
+        depends_on: 
+            - redis
+            - api
+            - ui
+        ports: 
+            - 3456:3456

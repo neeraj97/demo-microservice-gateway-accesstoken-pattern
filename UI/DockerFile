@@ -1,0 +1,16 @@
+# Specify the base image
+FROM node:alpine as Builder
+# Specify the work dir
+WORKDIR /app
+
+# copy and install dependencies
+COPY ./package.json ./package-lock.json ./
+RUN npm install
+# copy the whole
+COPY ./ ./
+
+# Building prod files
+RUN npm run build --prod
+
+FROM nginx:alpine
+COPY --from=Builder /app/dist/my-app/ /usr/share/nginx/html

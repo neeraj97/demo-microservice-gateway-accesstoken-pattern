@@ -1,0 +1,19 @@
+# changing the server properties
+
+server:
+  port: ${server.port}
+  servlet:
+       context-path: /
+#
+# JWT props
+#
+jwt:
+  validity: 3600
+  secret: 1928372981362983232131231431234311209327483
+
+#
+#disabling the default fall back filter chain for (/**) any request
+#
+security:
+  basic:
+    enabled: false
