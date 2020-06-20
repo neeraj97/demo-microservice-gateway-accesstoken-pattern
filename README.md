@@ -85,7 +85,7 @@ The authentication used in this project is Mobile OTP authentication.
 would be something like this 919440XXXXXX. Enter the OTP received for authentication. Now hit the secure button
 and response should be successfully fetched.
 
-#### What happening behing the scenes?
+#### What is happening behing the scenes?
 For every request zuul gateway runs a set of security filters and if the api resource is secured 
 and the request is not authenticated, it would throw `401 UNAUTHORIZED`. Gateway has set of end points for performing authentication.
 Before making request to secure endpoints, a separate request has to made for authenticating user, in this case otp login.
