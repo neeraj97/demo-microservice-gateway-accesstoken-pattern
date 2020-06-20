@@ -35,7 +35,7 @@ requestor in each request to the microservices. These access tokens can be passe
 
 Image below shows a basic architecture of the pattern
 
-![](https://lh6.googleusercontent.com/mmB3N-e6V6cVLX8PDn1ebMIx1DC3ZdhEt0Fo5ODmq7mW0pXZ964iFMqiBo9ZCL7YILT15WLDc5jpAQ=w1920-h902)
+![Simple Architecture](img/SimpleGatewayAccessTokenPattern.png)
 
 ##Implementation
 This project demonstrates the pattern on high level by using four different services:
@@ -51,7 +51,7 @@ on the gateway instance itself. So a request could be handled by any gateway ser
 
 This is the architecture implemented:
 
-![](https://lh3.googleusercontent.com/r23E1sfvDDOUADnilST-aaljfgF9vwCnjQ0jWb8SZAKlCMDiGejiI3rHYMu-mGJEkuyMdFp6XJGGEg=w1920-h902)
+![zuul jwt architecture](img/ZuulGatewayJwtAccesstokenPatttern.png)
 
 ##Running the project
 Things that are required for running the project:
