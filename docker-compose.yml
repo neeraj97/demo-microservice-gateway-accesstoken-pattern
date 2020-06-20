@@ -29,6 +29,9 @@ services:
             - ui.url=http://ui:80
             - redis.hostname=redis
             - redis.port=6379
+            - twilio.account_sid=your_twilio_account_sid
+            - twilio.auth_token=your_twilio_auth_token
+            - twilio.service_sid=your_verifyservice_sid
         depends_on: 
             - redis
             - api

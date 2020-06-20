@@ -50,9 +50,9 @@ security:
 #Twilio configuration and details
 
 twilio:
-  account_sid: your_account_sid
-  auth_token: your_auth_token
-  service_sid: your_service_sid
+  account_sid: ${twilio.account_sid}
+  auth_token: ${twilio.auth_token}
+  service_sid: ${twilio.service_sid}
 
 
 # ...
